@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- Ánh xạ cho các trang thông thường -->
+    <mapping path="/*" name="web" decorator="web.jsp"/>
+
+    <!-- Ánh xạ cho các trang quản trị (admin) -->
+    <mapping path="/admin/*" name="admin" decorator="admin.jsp"/>
+
+    <!-- Ánh xạ cho các trang người dùng (user) -->
+    <mapping path="/user/*" name="user" decorator="user.jsp"/>
+
+    <!-- Loại trừ ánh xạ cho các API -->
+    <mapping path="/v1/api*" name="api" exclude="true"/>
+</sitemesh>
