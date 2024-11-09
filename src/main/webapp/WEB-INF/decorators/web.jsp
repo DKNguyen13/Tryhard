@@ -44,7 +44,6 @@
 <!-- End: Header -->
 
 <!--Begin content-->
-
 <sitemesh:write property ="body"/>
 <!--End content-->
 
