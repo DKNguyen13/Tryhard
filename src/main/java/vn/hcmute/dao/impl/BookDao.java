@@ -20,33 +20,33 @@ public class BookDao extends DBConnection implements IBookDao {
     // Lấy danh sách sách từ cơ sở dữ liệu
     @Override
     public List<BookModel> getAllBooks() {
-        List<BookModel> books = new ArrayList<>();
-        String query = "SELECT * FROM books";
+        List<BookModel> listBook = new ArrayList<>();
+        String sql = "select at.author_name, b.bookid, b.isbn, b.title, b.publisher, b.price, b.description, b.publish_date, b.cover_image, b.quantity " +
+                "from book_author ba join author at on ba.author_id = at.author_id " +
+                "join books b on ba.bookid = b.bookid";
         try {
-            con = super.getDatabaseConnection();
-            ps = con.prepareStatement(query);
+            con =super.getDatabaseConnection();
+            ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                BookModel book = new BookModel(
-                        rs.getInt("bookid"),
-                        rs.getString("isbn"),
-                        rs.getString("title"),
-                        rs.getString("publisher"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getDate("publish_date"),
-                        rs.getString("cover_image"),
-                        rs.getInt("quantity")
-                );
-                books.add(book);
-
+                BookModel book = new BookModel();
+                book.setBookId(rs.getInt("bookid"));
+                book.setIsbn(rs.getInt("isbn"));
+                book.setTitle(rs.getString("title"));
+                book.setPublisher(rs.getString("publisher"));
+                book.setPrice(rs.getDouble("price"));
+                book.setDescription(rs.getString("description"));
+                book.setPublishDate(rs.getDate("publish_date"));
+                book.setCoverImage(rs.getString("cover_image"));
+                book.setQuantity(rs.getInt("quantity"));
+                book.setAuthor(rs.getString("author_name"));
+                listBook.add(book);
             }
-            return books;
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return listBook;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
     // Lấy thông tin tác giả theo id sách
     @Override
@@ -78,50 +78,14 @@ public class BookDao extends DBConnection implements IBookDao {
 
     @Override
     public List<BookModel> getBooksWithAuthors() {
-        List<BookModel> books = new ArrayList<>();
-        String query = "SELECT b.bookid, b.isbn, b.title, b.publisher, b.price, b.description, " +
-                "b.publish_date, b.cover_image, b.quantity, a.author_name " +
-                "FROM books b " +
-                "JOIN book_author ba ON b.bookid = ba.bookid " +
-                "JOIN author a ON ba.author_id = a.author_id";
-
-        try {
-            con = super.getDatabaseConnection();
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                // Lấy thông tin sách từ kết quả truy vấn
-                BookModel book = new BookModel(
-                        rs.getInt("bookid"),
-                        rs.getString("isbn"),
-                        rs.getString("title"),
-                        rs.getString("publisher"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getDate("publish_date"),
-                        rs.getString("cover_image"),
-                        rs.getInt("quantity")
-                );
-
-                // Lấy tên tác giả và thêm vào danh sách
-                String authorName = rs.getString("author_name");
-                // Bạn có thể tạo một AuthorModel nếu muốn
-                AuthorModel author = new AuthorModel();
-                author.setAuthorName(authorName);
-                // Nếu muốn trả về nhiều tác giả cho một sách, bạn có thể sử dụng Map hoặc một cấu trúc dữ liệu khác
-                // Ví dụ: sử dụng HashMap để lưu thông tin sách và tác giả
-                // book.setAuthors(Arrays.asList(author));
-
-                // Thêm sách vào danh sách
-                books.add(book);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return books;
+        return null;
     }
 
+    public static void main(String[] args) {
+        List<BookModel> books = new ArrayList<>();
+        books = new BookDao().getAllBooks();
+        for (BookModel book : books) {
+            System.out.println(book.toString());
+        }
+    }
 }

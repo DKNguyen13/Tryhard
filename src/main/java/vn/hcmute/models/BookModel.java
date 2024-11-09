@@ -10,7 +10,7 @@ import java.sql.Date;
 @Data
 public class BookModel implements Serializable {
     private int bookId;
-    private String isbn;
+    private int isbn;
     private String title;
     private String publisher;
     private double price;
@@ -18,4 +18,6 @@ public class BookModel implements Serializable {
     private Date publishDate;
     private String coverImage;
     private int quantity;
+    private String author;
+
 }

@@ -52,7 +52,7 @@
                                     <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${pageContext.request.contextPath}/views/admin/home.jsp">Home</a>
                                 </li>
                                 <li class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${URL}template/assets/books-media-list-view.html">Product</a>
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${pageContext.request.contextPath}/admin/books">Product</a>
                                 </li>
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${URL}template/assets/#">Pages</a>
