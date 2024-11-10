@@ -18,6 +18,7 @@ public class HomeController extends HttpServlet {
         if(session != null && session.getAttribute("account") != null) {
             UserModel u = (UserModel) session.getAttribute("account");
             req.setAttribute("funa", u.getFullname());
+            req.setAttribute("email", u.getEmail());
         }
         req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
     }

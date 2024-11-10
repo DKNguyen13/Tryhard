@@ -43,6 +43,37 @@ public class RatingDao extends DBConnection implements IRatingDao {
         return ratingModels;
     }
 
+    @Override
+    public void insertRatingModel(RatingModel ratingModel) {
+        String checkQuery = "SELECT COUNT(*) FROM rating WHERE userid = ? AND bookid = ?";
+        String insertQuery = "INSERT INTO rating (userid, bookid, rating, review_text) VALUES (?, ?, ?, ?)";
+        try {
+            conn = super.getDatabaseConnection();
+
+            // Kiểm tra xem có bản ghi nào với userid và bookid chưa
+            ps = conn.prepareStatement(checkQuery);
+            ps.setInt(1, ratingModel.getUserid());
+            ps.setInt(2, ratingModel.getBookid());
+            rs = ps.executeQuery();
+
+            // Nếu không có bản ghi nào, thực hiện INSERT
+            if (rs.next() && rs.getInt(1) == 0) {
+                ps = conn.prepareStatement(insertQuery);
+                ps.setInt(1, ratingModel.getUserid());
+                ps.setInt(2, ratingModel.getBookid());
+                ps.setInt(3, ratingModel.getRating());
+                ps.setString(4, ratingModel.getReview_text());
+                ps.executeUpdate();
+                System.out.println("Thành công");
+            } else {
+                System.out.println("Đánh giá đã tồn tại cho người dùng và sách này.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void main(String[] args) {
 
     }

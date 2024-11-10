@@ -95,6 +95,7 @@ public class UserDao extends DBConnection implements IUserDao {
             rs = ps.executeQuery();
             if(rs.next()){
                 user = new UserModel();
+                user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
                 user.setFullname(rs.getString("fullname"));
                 user.setPhone(rs.getInt("phone"));

@@ -13,4 +13,9 @@ public class RatingService implements IRatingService {
     public List<RatingModel> ratingModels(int bookid) {
         return ratingDao.ratingModels(bookid);
     }
+
+    @Override
+    public void insertRatingModel(RatingModel ratingModel) {
+        ratingDao.insertRatingModel(ratingModel);
+    }
 }

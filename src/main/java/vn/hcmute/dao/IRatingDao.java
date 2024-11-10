@@ -7,4 +7,6 @@ import java.util.List;
 public interface IRatingDao {
 
     List<RatingModel> ratingModels(int bookid);
+
+    void insertRatingModel(RatingModel ratingModel);
 }

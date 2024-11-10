@@ -28,7 +28,13 @@
             <td style="text-align: center;">${cate.quantity}</td>
             <td style="text-align: center;">${cate.author}</td>
             <td style="text-align: center;">
-                <a href="<c:url value='/admin/book/detail?id=${cate.bookId}'/>">Detail</a>
+
+                <c:if test="${isAdmin}">
+                    <a href="<c:url value='/admin/book/detail?id=${cate.bookId}'/>">Detail</a>
+                </c:if>
+                <c:if test="${!isAdmin}">
+                    <a href="<c:url value='/user/book/detail?id=${cate.bookId}'/>">Detail</a>
+                </c:if>
             </td>
             <c:if test="${isAdmin}">
                 <td style="text-align: center;">
