@@ -14,4 +14,14 @@ public class AuthorService implements IAuthorService {
     public List<AuthorModel> getAllAuthors() {
         return authorDao.getAllAuthors();
     }
+
+    @Override
+    public List<AuthorModel> getAuthorsWithPagination(int offset, int limit) {
+        return authorDao.getAuthorsWithPagination(offset, limit);
+    }
+
+    @Override
+    public int getAuthorsCount() {
+        return authorDao.getAuthorsCount();
+    }
 }
