@@ -9,20 +9,17 @@
         <th style="text-align: center;">Publisher</th>
         <th style="text-align: center;">Publisher Date</th>
         <th style="text-align: center;">Quantity</th>
-        <th style="text-align: center;">Authors</th> <!-- Thêm cột Tác giả -->
-        <th style="text-align: center;">Action</th>
+        <th style="text-align: center;">Authors</th>
+        <th style="text-align: center;">Detail</th>
+        <c:if test="${isAdmin}">
+            <th style="text-align: center;">Action</th>
+        </c:if>
     </tr>
     <c:forEach items="${bookList}" var="cate" varStatus="STT">
         <tr>
             <td style="text-align: center;">${STT.index + 1}</td>
             <td style="text-align: center;">
-                <c:if test="${cate.coverImage.substring(0, 5) != 'https'}">
-                    <c:url value="/image?fname=${cate.coverImage}" var="imgUrl"></c:url>
-                </c:if>
-                <c:if test="${cate.coverImage.substring(0, 5) == 'https'}">
-                    <c:url value="${cate.coverImage}" var="imgUrl"></c:url>
-                </c:if>
-                <img height="150" width="200" src="${imgUrl}" />
+                <img height="150" width="200" src="<c:url value='/image?fname=${cate.coverImage}'/>" />
             </td>
             <td style="text-align: center;">${cate.title}</td>
             <td style="text-align: center;">${cate.isbn}</td>
@@ -31,10 +28,14 @@
             <td style="text-align: center;">${cate.quantity}</td>
             <td style="text-align: center;">${cate.author}</td>
             <td style="text-align: center;">
-                <a href="<c:url value='/admin/category/edit?id=${cate.bookId}'/>">Sửa</a>
-                |
-                <a href="<c:url value='/admin/category/delete?id=${cate.bookId}'/>">Xóa</a>
+                <a href="<c:url value='/admin/book/detail?id=${cate.bookId}'/>">Detail</a>
             </td>
+            <c:if test="${isAdmin}">
+                <td style="text-align: center;">
+                    <a href="<c:url value='/admin/books/edit?id=${cate.bookId}'/>">Edit</a> |
+                    <a href="<c:url value='/admin/books/delete?id=${cate.bookId}'/>">Delete</a>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

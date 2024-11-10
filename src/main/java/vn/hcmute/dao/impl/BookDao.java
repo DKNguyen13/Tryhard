@@ -50,30 +50,38 @@ public class BookDao extends DBConnection implements IBookDao {
     }
     // Lấy thông tin tác giả theo id sách
     @Override
-    public List<AuthorModel> getAuthorsByBookId(int bookId) {
+    public BookModel getByBookId(int bookId) {
         List<AuthorModel> authors = new ArrayList<>();
-        String query = "SELECT a.author_id, a.author_name, a.date_of_birth " +
-                "FROM author a " +
-                "JOIN book_author ba ON a.author_id = ba.author_id " +
-                "WHERE ba.bookid = ?";
+        String query = "SELECT at.author_name, b.bookid, b.isbn, b.title, b.publisher, b.price, b.description, b.publish_date, b.cover_image, b.quantity " +
+                "FROM book_author ba " +
+                "JOIN author at ON ba.author_id = at.author_id " +
+                "JOIN books b ON ba.bookid = b.bookid " +
+                "WHERE b.bookid = ?";
 
+        BookModel book = new BookModel();
         try (Connection con = super.getDatabaseConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, bookId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    AuthorModel author = new AuthorModel(
-                            rs.getInt("author_id"),
-                            rs.getString("author_name"),
-                            rs.getDate("date_of_birth")
-                    );
-                    authors.add(author);
+
+                    book.setBookId(rs.getInt("bookid"));
+                    book.setIsbn(rs.getInt("isbn"));
+                    book.setTitle(rs.getString("title"));
+                    book.setPublisher(rs.getString("publisher"));
+                    book.setPrice(rs.getDouble("price"));
+                    book.setDescription(rs.getString("description"));
+                    book.setPublishDate(rs.getDate("publish_date"));
+                    book.setCoverImage(rs.getString("cover_image"));
+                    book.setQuantity(rs.getInt("quantity"));
+                    book.setAuthor(rs.getString("author_name"));
+
                 }
             }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException("Error retrieving authors for bookId: " + bookId, e);
         }
-        return authors;
+        return book;
     }
 
     @Override

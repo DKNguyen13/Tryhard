@@ -17,9 +17,10 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public List<AuthorModel> getAuthorsByBookId(int bookId) {
-        return bookDao.getAuthorsByBookId(bookId);
+    public BookModel getByBookId(int bookId) {
+        return bookDao.getByBookId(bookId);
     }
+
 
     @Override
     public List<BookModel> getBooksWithAuthors() {

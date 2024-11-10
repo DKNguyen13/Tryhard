@@ -49,7 +49,7 @@
                         <div class="navbar-collapse hidden-sm hidden-xs">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown active">
-                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${pageContext.request.contextPath}/views/admin/home.jsp">Home</a>
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="${pageContext.request.contextPath}/admin/home#">Home</a>
                                 </li>
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle disabled" href="${pageContext.request.contextPath}/admin/books">Product</a>
@@ -71,11 +71,6 @@
                             </li>
                             <li>
                                 <a href="${URL}template/assets/index-2.html">Home</a>
-                                <ul>
-                                    <li><a href="${URL}template/assets/index-2.html">Home V1</a></li>
-                                    <li><a href="${URL}template/assets/home-v2.html">Home V2</a></li>
-                                    <li><a href="${URL}template/assets/home-v3.html">Home V3</a></li>
-                                </ul>
                             </li>
                             <li>
                                 <a href="${URL}template/assets/books-media-list-view.html">Books &amp; Media</a>

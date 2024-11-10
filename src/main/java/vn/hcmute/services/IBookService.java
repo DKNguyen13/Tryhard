@@ -10,7 +10,6 @@ public interface IBookService {
     List<BookModel> getAllBooks();
 
     // Lấy thông tin tác giả theo id sách
-    List<AuthorModel> getAuthorsByBookId(int bookId);
-
+    public BookModel getByBookId(int bookId);
     List<BookModel> getBooksWithAuthors();
 }
